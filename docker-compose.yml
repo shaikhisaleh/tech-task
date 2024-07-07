@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  app:
+    image: my-app
+    build:
+      context: .
+    container_name: app
+    depends_on:
+      - db
+    environment:
+      - APP_DB_PASSWORD=mysecretpassword
+      - APP_DB_URL=jdbc:postgresql://db:5432/postgres
+      - APP_DB_USERNAME=postgres
+
+    ports:
+      - "8080:8080"
+
+  db:
+    image: postgres
+    container_name: db
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=mysecretpassword
+      - POSTGRES_DB=postgres
+    ports:
+      - "5432:5432"
