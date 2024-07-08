@@ -26,7 +26,6 @@ public class FetchDataService {
     public String fetchAndSaveData() {
         String postsUrl = "https://jsonplaceholder.typicode.com/users/1/posts";
         Post[] posts = restTemplate.getForObject(postsUrl, Post[].class);
-        System.out.println("Posts length  " +posts.length);
         if(posts == null || posts.length < 1){
             return "No posts found";
         }

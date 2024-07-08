@@ -3,6 +3,10 @@ package com.salshaikhi.task.config;
 
 import com.salshaikhi.task.exception.NotFoundException;
 import com.salshaikhi.task.repository.UserRepository;
+import io.github.bucket4j.Bandwidth;
+import io.github.bucket4j.Bucket;
+import io.github.bucket4j.Bucket4j;
+import io.github.bucket4j.Refill;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -12,6 +16,8 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.client.RestTemplate;
+
+import java.time.Duration;
 
 @Configuration
 public class ApplicationConfig {
@@ -50,5 +56,13 @@ public class ApplicationConfig {
     @Bean
     public RestTemplate restTemplate() {
         return new RestTemplate();
+    }
+
+    @Bean
+    public Bucket rateLimitBucket() {
+        Bandwidth limit = Bandwidth.classic(3, Refill.intervally(3, Duration.ofMinutes(1)));
+        return Bucket4j.builder()
+                .addLimit(limit)
+                .build();
     }
 }
