@@ -53,7 +53,7 @@ An application that fetches data from an external api and save them to the datab
 - **Response:**
   ```
   Data fetched successfully
-
+- **Note:** fetch-data is rate limited to 3 requests per minute
 ### 4. `/v1/api/posts`
 - **Method:** GET
 - **Description:** Returns list of posts from the database

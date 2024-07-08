@@ -19,7 +19,6 @@ public class FetchDataController {
         this.fetchDataService = fetchDataService;
     }
 
-
     @GetMapping("/fetch-data")
     public ResponseEntity<String> fetchData(){
         if (bucket.tryConsume(1)) {
